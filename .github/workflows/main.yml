@@ -19,21 +19,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Configurar Variables de Entorno y Licencias de Android
+    - name: Configurar Licencias de Android SDK
       run: |
         echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
         yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-    - name: Compilar APK
-      run: |
-        if [ -f "./gradlew" ]; then
-          chmod +x ./gradlew
-          ./gradlew assembleDebug --stacktrace
-        else
-          gradle assembleDebug --stacktrace
-        fi
+    - name: Ejecutar compilacion limpia de depuracion
+      run: ./gradlew clean assembleDebug --no-daemon
 
-    - name: Subir el APK como artefacto
+    - name: Subir el APK generado
       uses: actions/upload-artifact@v4
       with:
         name: SENSI-BLEXCT-APK

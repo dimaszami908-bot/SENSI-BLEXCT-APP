@@ -25,7 +25,7 @@ jobs:
         yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
     - name: Compilar APK dentro de la carpeta del proyecto
-      working-directory: ./NOMBRE_DE_TU_CARPETA
+      working-directory: ./SENSI-BLEXCT-APP
       run: |
         if [ -f "./gradlew" ]; then
           chmod +x ./gradlew
@@ -38,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: SENSI-BLEXCT-APK
-        path: NOMBRE_DE_TU_CARPETA/app/build/outputs/apk/debug/app-debug.apk
+        path: SENSI-BLEXCT-APP/app/build/outputs/apk/debug/app-debug.apk

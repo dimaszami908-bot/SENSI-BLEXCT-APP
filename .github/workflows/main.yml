@@ -24,8 +24,7 @@ jobs:
         echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
         yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-    - name: Compilar APK dentro de la carpeta del proyecto
-      working-directory: ./SENSI-BLEXCT-APP
+    - name: Compilar APK
       run: |
         if [ -f "./gradlew" ]; then
           chmod +x ./gradlew
@@ -38,4 +37,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: SENSI-BLEXCT-APK
-        path: SENSI-BLEXCT-APP/app/build/outputs/apk/debug/app-debug.apk
+        path: app/build/outputs/apk/debug/app-debug.apk

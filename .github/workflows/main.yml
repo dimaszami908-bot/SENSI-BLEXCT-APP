@@ -19,13 +19,19 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Instalar Android SDK y licencias
+    - name: Configurar Android SDK
       uses: android-actions/setup-android@v3
       with:
         cmdline-tools-version: 8512546
 
-    - name: Compilar APK
-      run: gradle assembleDebug --stacktrace
+    - name: Aceptar licencias del SDK
+      run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+
+    - name: Dar permisos a Gradle Wrapper (si existe)
+      run: chmod +x gradlew || true
+
+    - name: Compilar APK con Gradle
+      run: ./gradlew assembleDebug --stacktrace || gradle assembleDebug --stacktrace
 
     - name: Subir el APK como artefacto
       uses: actions/upload-artifact@v4

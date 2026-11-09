@@ -24,13 +24,13 @@ jobs:
         echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
         yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
-    - name: Compilar APK usando Gradle Wrapper o Global
+    - name: Compilar APK con información detallada
       run: |
         if [ -f "./gradlew" ]; then
           chmod +x ./gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --info
         else
-          gradle assembleDebug --stacktrace
+          gradle assembleDebug --info
         fi
 
     - name: Subir el APK como artefacto
